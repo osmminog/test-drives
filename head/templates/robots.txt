@@ -1,0 +1,6 @@
+User-Agent: *
+Disallow: /private/
+Disallow: /junk/
+Disallow: /admin/ # запрещает ссылки из панели администратора
+Disallow: /feed/
+Allow: /

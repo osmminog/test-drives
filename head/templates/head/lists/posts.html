@@ -1,0 +1,160 @@
+{% extends "head/base.html" %}
+{% load head_tags %}
+{% load el_pagination_tags %} 
+{% load user_agents %}
+{% load static %}
+{% block title %}Автоновости{% endblock %}
+{% block description %} <meta name="Description" content="Автомобильные новости"/>{% endblock %}
+{% block content %}
+<h1>Автоновости</h1>
+{% if request|is_pc %}
+
+  <div id="main" class="cars-list"> 
+  
+  {% if tag %}
+    <h2>Новости о "{{ tag.name }}"</h2>
+  {% endif %}
+  {% paginate 5 posts %}
+  {% for post in posts %}
+  <div class="posts">
+    <a href="{{ post.get_absolute_url }}">
+      <h2>{{ post.title }}</h2>
+      {% if post.image_jpg %}
+      <picture>
+        {% if post.image_webp_small or post.image_webp %}
+        <source class="lazyload" data-src="{{ post.image_webp.url }}" data-srcset="{{ post.image_webp_small.url }} 400w, {{ post.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ post.title }}">
+        <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="50%" height="100%" alt="{{ post.title }}">
+        <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="50%" height="100%" alt="{{ post.title }}">
+        {% else %}
+        <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="50%" height="100%" alt="{{ post.title }}">
+        <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="50%" height="100%" alt="{{ post.title }}">
+        {% endif %}
+      </picture>
+      {% endif %}
+      <div id="short_post">{{ post.body|markdown|truncatewords_html:30 }}</div>
+    </a>
+    {% if post.tags.all %}
+    <p class="tags">
+      Теги:
+      {% for tag in post.tags.all %}
+        <a href='{% url "head:post_list_by_tag" tag.slug %}'>
+          {{ tag.name }}
+        </a>
+        {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="date">{{ post.publish }}</p>
+  </div>
+  {% endfor %}
+
+  <div class="pagination pagination-centered">
+    <div>{% show_pages %}</div>
+  </div>
+{% endif %}
+
+{% if request|is_mobile or request|is_tablet %}
+<div id="m-main" class="cars-list"> 
+  {% if tag %}
+    <h2>Новости о "{{ tag.name }}"</h2>
+  {% endif %}
+  {% paginate 5 posts %}
+  {% for post in posts %}
+  <div class="posts">
+    <a href="{{ post.get_absolute_url }}">
+      <h2>{{ post.title }}</h2>
+      {% if post.image_jpg %}
+      <picture>
+        {% if post.image_webp_small or post.image_webp %}
+        <source class="lazyload" data-src="{{ post.image_webp.url }}" data-srcset="{{ post.image_webp_small.url }} 400w, {{ post.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ post.title }}">
+        <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+        <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+        {% else %}
+        <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+        <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+        {% endif %}
+      </picture>
+      {% endif %}
+      <div id="short_post">{{ post.body|markdown|truncatewords_html:30 }}</div>
+    </a>
+    {% if post.tags.all %}
+    <p class="tags">
+      Теги:
+      {% for tag in post.tags.all %}
+        <a href='{% url "head:post_list_by_tag" tag.slug %}'>
+          {{ tag.name }}
+        </a>
+        {% if not forloop.last %}, {% endif %}
+      {% endfor %}
+    </p>
+    {% endif %}
+    <p class="date">{{ post.publish }}</p>
+  </div>
+  {% endfor %}
+
+  <div class="pagination pagination-centered">
+    <div>{% show_pages %}</div>
+  </div>
+</div>
+{% endif %}
+
+<hr>
+  <h3>
+    {% if brand_name and video_brand %}
+      <h3>Также смотрите видео обзоры {{ brand_name }}</h3>
+      <div class="item">
+        {% for v in video_brand %}
+          <div class="imgvideo">
+            <div class="video">
+              <a class="newvideo_link" href="/{{ slug_brand }}/">
+                <picture>
+                  {% if v.image_webp_small %}
+                    <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp_small.url }} 400w, {{ v.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ v.title_video }}">
+                    <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+                  {% else %}
+                    <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+                  {% endif %}
+                </picture>
+                <h4 class="link_to_newvideo">{{ v.title_video }}</h4>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+      <h3>Также смотрите видео обзоры автомобилей</h3>
+  <div class="item">
+    {% for v in video %}
+      <div class="imgvideo">
+        <div class="video">
+          <a class="newvideo_link" href="/">
+            <picture>
+              {% if v.image_webp_small %}
+                <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp_small.url }} 400w, {{ v.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ v.title_video }}">
+                <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+              {% else %}
+                <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+              {% endif %}
+            </picture>
+            <h4 class="link_to_newvideo">{{ v.title_video }}</h4>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+  </div>
+{% endif %}
+{% block extrahead %}
+      <script async type="text/javascript" src="{% static 'js/lazyload.js' %}"></script>
+      <script async type="text/javascript" src="{% static 'js/video.js' %}"></script>
+      <script async type="text/javascript" src="{% static 'js/style.js' %}"></script>
+    {% endblock extrahead %}
+
+{% endblock %}

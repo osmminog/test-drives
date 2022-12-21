@@ -1,0 +1,29 @@
+#sidebar {
+    width: 15%;
+    padding: 0 2% 0 0;
+    float: left;
+    font-size: 1.4vw;
+}
+#sidebar ul{
+    margin:0;
+    padding:0;
+}
+#sidebar ul li {
+    margin:0;
+    list-style:none;
+    padding:10px 14px;
+}
+#sidebar ul li a {
+    display:block;
+}
+#sidebar ul li.selected {
+    background:#ff0033;
+    border-radius:4px;
+}
+#sidebar ul li.selected a {
+    color:#fff;
+}
+.topmenu{
+    margin-left: 17%;
+    padding-top: 10px;
+}

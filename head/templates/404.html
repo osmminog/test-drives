@@ -1,0 +1,39 @@
+{% extends "head/base.html" %}
+{% load static %}
+{% block title %}
+  Страница 404
+{% endblock %}
+
+{% block content %}
+
+<h1 id="no_page">
+  Такой страницы не существует. Смотрите видео обзоры автомобилей популярных марок
+</h1>
+  <div class="item">
+    {% for p in popularvideo %}
+      <div class="imgvideo">
+        <div class="video">
+          <a class="newvideo_link" href="/">
+            <picture>
+              {% if p.image_webp_small %}
+                <source class="lazyload" data-src="{{ p.image_webp.url }}" data-srcset="{{ p.image_webp_small.url }} 400w, {{ p.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ p.title_video }}">
+                <source class="lazyload" data-src="{{ p.image_jpg.url }}" data-srcset="{{ p.image_jpg.url }}" width="600" height="340" alt="{{ p.title_video }}">
+                  <img class="lazyload" data-src="{{ p.image_jpg.url }}" width="100%" height="100%" alt="{{ p.title_video }}">
+              {% else %}
+                <source class="lazyload" data-src="{{ p.image_webp.url }}" data-srcset="{{ p.image_webp.url }}" width="600" height="340" alt="{{ p.title_video }}">
+                <source class="lazyload" data-src="{{ p.image_jpg.url }}" data-srcset="{{ p.image_jpg.url }}" width="600" height="340" alt="{{ p.title_video }}">
+                <img class="lazyload" data-src="{{ p.image_jpg.url }}" width="100%" height="100%" alt="{{ p.title_video }}">
+              {% endif %}
+            </picture>
+            <h4 class="link_to_newvideo">{{ p.title_video }}</h4>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% block extrahead %}
+  <script async type="text/javascript" src="{% static 'js/lazyload.js' %}"></script>
+  <script async type="text/javascript" src="{% static 'js/style.js' %}"></script>
+{% endblock extrahead %}
+
+{% endblock %}

@@ -1,0 +1,276 @@
+{% extends "head/base.html" %}
+{% load el_pagination_tags %} 
+{% load static %}
+{% load user_agents %}
+{% block title %}
+    Тест драйвы автомобилей, автоновости.
+{% endblock %}
+{% block description %} <meta name="Description" content="Видео обзоры, тест драйвы автомобилей разных марок, автоновости"/>{% endblock %}
+{% block content %}
+
+<div id="head_content">
+<h1>Последние автоновости</h1>
+{% if request|is_pc %}  
+
+  {% for post in new_post %}
+<div class="imgvideo1">
+    <div class="video1">
+    <div class="posts">
+      <a class="newvideo_link1" href="{{ post.get_absolute_url }}">
+        {% if post.image_jpg %}
+        <picture id="picture_news">
+          {% if post.image_webp_small or post.image_webp %}
+          <source class="lazyload" data-src="{{ post.image_webp.url }}" data-srcset="{{ post.image_webp_small.url }} 400w, {{ post.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ post.title }}">
+          <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          {% else %}
+          <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          {% endif %}
+        </picture>
+        {% endif %}
+        <h3 class="head_title_news">{{ post.title }}</h3>
+      </a>
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+
+
+<div class="item">
+  {% for post in posts %}
+  <div class="imgvideo1">
+    <div class="video1">
+    <div class="posts">
+      <a class="newvideo_link1" href="{{ post.get_absolute_url }}">
+        {% if post.image_jpg %}
+        <picture id="picture_news">
+          {% if post.image_webp_small or post.image_webp %}
+          <source class="lazyload" data-src="{{ post.image_webp.url }}" data-srcset="{{ post.image_webp_small.url }} 400w, {{ post.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ post.title }}">
+          <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          {% else %}
+          <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          {% endif %}
+        </picture>
+        {% endif %}
+        <h3 class="title_news">{{ post.title }}</h3>
+      </a>
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+  </div>
+  <a href="autonews/" class="button_news">Еще больше новостей >>></a>
+
+
+  <hr>
+  <h2>Новые тест драйвы автомобилей</h2>
+  <div class="item">
+    {% paginate 20 popularvideo %}
+    {% for t in newvideo %}
+    <div class="video_cart">
+      <div class="video">
+        <a class="video__link" href="https://youtu.be/{{ t.id_videos }}">
+          <picture>
+            {% if t.image_webp_small %}
+            <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp_small.url }} 300w, {{ t.image_webp.url }} 700w" sizes = "50vw" width="600" height="340" alt="{{ t.title_video }}">
+            <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+            <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+          {% else %}
+            <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp.url }}" width="600" height="340" alt="{{ t.title_video }}">
+            <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+            <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+          {% endif %}
+          </picture>
+        </a>
+        <button class="video__button" aria-label="Запустить видео">
+          <svg width="68" height="48" viewBox="0 0 68 48">
+            <path class="video__button-shape" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"></path>
+            <path class="video__button-icon" d="M 45,24 27,14 27,34"></path>
+          </svg>
+        </button>
+      </div>
+      <h2>{{ t.title_video }}</h2>
+      <a class="open_page_video">Подробнее</a>
+    </div>
+    {% endfor %}
+  </div>
+  <a href="new_video/" class="button_news">Еще больше новых тестов >>></a>
+
+<hr>
+<h2>Самые популярные видео обзоры автомобилей</h2>
+<div class="item">
+  {% paginate 20 popularvideo %}
+  {% for t in popularvideo %}
+  <div class="video_cart">
+    <div class="video">
+      <a class="video__link" href="https://youtu.be/{{ t.id_videos }}">
+        <picture>
+          {% if t.image_webp_small %}
+          <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp_small.url }} 300w, {{ t.image_webp.url }} 700w" sizes = "50vw" width="600" height="340" alt="{{ t.title_video }}">
+          <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+          <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+        {% else %}
+          <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp.url }}" width="600" height="340" alt="{{ t.title_video }}">
+          <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+          <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+        {% endif %}
+        </picture>
+      </a>
+      <button class="video__button" aria-label="Запустить видео">
+        <svg width="68" height="48" viewBox="0 0 68 48">
+          <path class="video__button-shape" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"></path>
+          <path class="video__button-icon" d="M 45,24 27,14 27,34"></path>
+        </svg>
+      </button>
+    </div>
+    <h2>{{ t.title_video }}</h2>
+    <a class="open_page_video">Подробнее</a>
+  </div>
+  {% endfor %}
+</div>
+<a href="popular_video/" class="button_news">Еще больше популярных тестов >>></a>
+{% endif %}
+
+{% if request|is_mobile or request|is_tablet %}
+  <div id="m-main" class="cars-list"> 
+    {% if brand %}
+      {% for c in cars %}
+        <a href='{{ c.get_absolute_url }}' {% if car.slug == c.slug %}class="selected"{% endif %} id='car'>
+          <div>{{ c.title }}</div>
+        </a>
+      {% endfor %}
+    {% endif %}
+
+
+    {% for post in new_post %}
+    <div class="imgvideo1">
+        <div class="video1">
+        <div class="posts">
+          <a class="newvideo_link1" href="{{ post.get_absolute_url }}">
+            {% if post.image_jpg %}
+            <picture id="picture_news">
+              {% if post.image_webp_small or post.image_webp %}
+              <source class="lazyload" data-src="{{ post.image_webp.url }}" data-srcset="{{ post.image_webp_small.url }} 400w, {{ post.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ post.title }}">
+              <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+              <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+              {% else %}
+              <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+              <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+              {% endif %}
+            </picture>
+            {% endif %}
+            <h3 class="head_title_news">{{ post.title }}</h3>
+          </a>
+        </div>
+      </div>
+      </div>
+      {% endfor %}
+
+      
+<div class="item">
+  {% for post in posts %}
+  <div class="imgvideo1">
+    <div class="video1">
+    <div class="posts">
+      <a class="newvideo_link1" href="{{ post.get_absolute_url }}">
+        {% if post.image_jpg %}
+        <picture id="picture_news">
+          {% if post.image_webp_small or post.image_webp %}
+          <source class="lazyload" data-src="{{ post.image_webp.url }}" data-srcset="{{ post.image_webp_small.url }} 400w, {{ post.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ post.title }}">
+          <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          {% else %}
+          <source class="lazyload" data-src="{{ post.image_jpg.url }}" data-srcset="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          <img class="lazyload" data-src="{{ post.image_jpg.url }}" width="100%" height="100%" alt="{{ post.title }}">
+          {% endif %}
+        </picture>
+        {% endif %}
+        <h3 class="title_news">{{ post.title }}</h3>
+      </a>
+    </div>
+  </div>
+  </div>
+  {% endfor %}
+  </div>
+  <a href="autonews/" class="button_news">Еще больше новостей >>></a>
+
+      <hr>
+      <h2>Новые тест драйвы автомобилей</h2>
+      <div class="item">
+        {% paginate 20 popularvideo %}
+        {% for t in newvideo %}
+        <div class="video_cart">
+          <div class="video">
+            <a class="video__link" href="https://youtu.be/{{ t.id_videos }}">
+              <picture>
+                {% if t.image_webp_small %}
+                <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp_small.url }} 300w, {{ t.image_webp.url }} 700w" sizes = "50vw" width="600" height="340" alt="{{ t.title_video }}">
+                <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+                <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+              {% else %}
+                <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp.url }}" width="600" height="340" alt="{{ t.title_video }}">
+                <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+                <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+              {% endif %}
+              </picture>
+            </a>
+            <button class="video__button" aria-label="Запустить видео">
+              <svg width="68" height="48" viewBox="0 0 68 48">
+                <path class="video__button-shape" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"></path>
+                <path class="video__button-icon" d="M 45,24 27,14 27,34"></path>
+              </svg>
+            </button>
+          </div>
+          <h2>{{ t.title_video }}</h2>
+          <a class="open_page_video">Подробнее</a>
+        </div>
+        {% endfor %}
+      </div>
+      <a href="new_video/" class="button_news">Еще больше новых тестов >>></a>
+    
+    <hr>
+    <h2>Самые популярные видео обзоры автомобилей</h2>
+    <div class="item">
+      {% paginate 20 popularvideo %}
+      {% for t in popularvideo %}
+      <div class="video_cart">
+        <div class="video">
+          <a class="video__link" href="https://youtu.be/{{ t.id_videos }}">
+            <picture>
+              {% if t.image_webp_small %}
+              <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp_small.url }} 300w, {{ t.image_webp.url }} 700w" sizes = "50vw" width="600" height="340" alt="{{ t.title_video }}">
+              <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+              <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+            {% else %}
+              <source class="video__media lazyload" data-src="{{ t.image_webp.url }}" data-srcset="{{ t.image_webp.url }}" width="600" height="340" alt="{{ t.title_video }}">
+              <source class="video__media lazyload" data-src="{{ t.image_jpg.url }}" data-srcset="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+              <img class="video__media lazyload" data-src="{{ t.image_jpg.url }}" width="600" height="340" alt="{{ t.title_video }}">
+            {% endif %}
+            </picture>
+          </a>
+          <button class="video__button" aria-label="Запустить видео">
+            <svg width="68" height="48" viewBox="0 0 68 48">
+              <path class="video__button-shape" d="M66.52,7.74c-0.78-2.93-2.49-5.41-5.42-6.19C55.79,.13,34,0,34,0S12.21,.13,6.9,1.55 C3.97,2.33,2.27,4.81,1.48,7.74C0.06,13.05,0,24,0,24s0.06,10.95,1.48,16.26c0.78,2.93,2.49,5.41,5.42,6.19 C12.21,47.87,34,48,34,48s21.79-0.13,27.1-1.55c2.93-0.78,4.64-3.26,5.42-6.19C67.94,34.95,68,24,68,24S67.94,13.05,66.52,7.74z"></path>
+              <path class="video__button-icon" d="M 45,24 27,14 27,34"></path>
+            </svg>
+          </button>
+        </div>
+        <h2>{{ t.title_video }}</h2>
+        <a class="open_page_video">Подробнее</a>
+      </div>
+      {% endfor %}
+    </div>
+    <a href="popular_video/" class="button_news">Еще больше популярных тестов >>></a>
+{% endif %}
+
+
+    {% block extrahead %}
+      <script async type="text/javascript" src="{% static 'js/lazyload.js' %}"></script>
+      <script async type="text/javascript" src="{% static 'js/video.js' %}"></script>
+      <script async type="text/javascript" src="{% static 'js/style.js' %}"></script>
+    {% endblock extrahead %}
+</div>
+{% endblock %}

@@ -1,0 +1,100 @@
+#content {
+    overflow:hidden;
+}
+#head_content{
+    padding-right: 5%;
+}
+.head_title_news{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 83%;
+    margin: 0;
+    padding: 3%;
+    color: #ffffff;
+    background: #000000a6;
+    overflow: hidden;
+    font-size: 2.5vw;
+}
+.head_title_news:hover{
+    color: #58677d;
+}
+.button_news{
+    margin: 20px 0px 40px 0px;
+    display: block;
+    font-size: 1.4vw;
+}
+#sidebar {
+    width: 15%;
+    padding: 2% 2% 0 5%;
+    float: left;
+    font-size: 1.4vw;
+}
+#sidebar ul{
+    margin:0;
+    padding:0;
+}
+#sidebar ul li {
+    margin:0;
+    list-style:none;
+    padding:10px 14px;
+}
+#sidebar ul li a {
+    display:block;
+    display: inline-flex;
+}
+#sidebar ul li.selected {
+    background:#ff0033;
+    border-radius:4px;
+}
+.topmenu .selected {
+    color: #ff0033;
+}
+#sidebar ul li.selected a {
+    color:#fff;
+}
+.topmenu{
+    margin-left: 19.3%;
+    padding-top: 10px;
+}
+.topmenu a{
+    padding: 0 25px 0 0;
+}
+.similar_posts{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
+}
+form label{
+    color: #000000;
+    width: 15%;
+    float: left;
+}
+form input[type='text']{
+    border: 1px solid #58677d;
+    height: 20px;
+    border-radius: 4px;
+}
+form input[type='email']{
+    border: 1px solid #58677d;
+    height: 20px;
+    border-radius: 4px;
+}
+form input[type='submit']{
+    border: 0px solid #58677d;
+    height: 40px;
+    background-color: #58677d;
+    color: #ffffff;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    margin-left: 15%;
+}
+form input[type='submit']:hover{
+    background-color: #ff0000;
+    color: #ffffff;
+}
+form textarea{
+    border: 1px solid #58677d;
+    border-radius: 4px;
+}

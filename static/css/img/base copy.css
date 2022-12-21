@@ -1,0 +1,566 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu);
+
+body { 
+    margin:0;
+    padding:0;
+    font-family:helvetica, sans-serif; 
+}
+
+h1, h2, h3, h4, h5 , h6 { 
+    font-family: 'Ubuntu', sans-serif; font-weight:normal;
+}
+#content h1 {
+    margin-left: 17%;
+    margin-top: 0;
+}
+.video_cart h4 {
+    float: left;
+}
+a {
+    text-decoration:none;
+    color:#58677d;
+}
+
+a:hover {
+    color:#ff0000;
+}
+
+a.button, input[type="submit"] {
+    color:#fff;
+    background:#58677d;
+    border-radius:4px;
+    padding:10px 20px;
+    font-size:14px;
+    border:0;
+}
+
+a.button.light {
+    color:#666;
+    background:#ededed;
+}
+
+/* .text-left {
+    text-align:left;
+}
+
+.text-right {
+    text-align:right;
+} */
+
+/* table {
+    width:100%;
+    border-spacing:0;
+    border-collapse: collapse; 
+}
+
+table th, table td {
+    text-align:left;
+    font-size:14px;
+    padding:10px;
+    margin:0;
+}
+
+tbody tr:nth-child(odd) {
+    background:#efefef;
+}
+
+tbody tr.subtotal {
+    background:#ccc;
+}
+
+thead th, tbody tr.total {
+    background:#58677d;
+    color:#fff;
+    font-weight:bold;
+}
+
+table.cart {
+    margin-bottom:40px;
+}
+
+table.cart img {
+    width:180px;
+}
+
+tbody td.num {
+    text-align:right;
+}
+
+td input[type="submit"] {
+    font-size:12px;
+    padding:4px 10px;
+}
+
+form p label, form p input {
+    float:left;
+    clear:both;
+}
+
+form p label {
+    font-size:14px;
+    padding-bottom:4px;
+}
+
+form p input {
+    width:300px;
+    font-size:13px;
+    margin-bottom:10px;
+    padding:10px 12px;
+    border:0;
+    background:#efefef;
+    color:#666;
+    border-radius:4px;
+} */
+
+/* ul.errorlist {
+   float:left;
+   color:#ff0000;
+   clear:both;
+   font-size:13px;
+   margin:0; 
+   padding:0;
+} */
+
+
+#header {
+    padding:10px 100px;
+    font-size:18px;
+    overflow: auto;
+}
+
+/* #subheader {
+    background:#ececec;
+    color:#444;
+    padding:15px 100px;
+    overflow:auto;
+}
+
+#header .logo {
+    font-family: 'Ubuntu', sans-serif;
+    float:left;
+    color:#333;
+    font-size:22px;
+    margin-right:10%;
+}
+
+#subheader .cart {
+    float:right;
+    padding-top:4px;
+} */
+
+#content {
+    padding:0 5%;
+    overflow:hidden;
+}
+
+#sidebar {
+    width: 15%;
+    padding: 0 2% 0 0;
+    float: left;
+    font-size: 1.4vw;
+}
+
+#sidebar ul{
+    margin:0;
+    padding:0;
+}
+
+#sidebar ul li {
+    margin:0;
+    list-style:none;
+    padding:10px 14px;
+}
+
+#sidebar ul li a {
+    display:block;
+}
+
+#sidebar ul li.selected {
+    background:#ff0033;
+    border-radius:4px;
+}
+
+#sidebar ul li.selected a {
+    color:#fff;
+}
+
+#main {
+    float:left;
+    width: 83%;
+    overflow:hidden;
+}
+#m-main {
+    float: none;
+    width: 100%;
+    margin-right: 0px;
+    overflow: hidden;
+}
+#car.selected {
+    border:1px solid #ff0000;
+    color: #ff0000;
+}
+#car {
+    background:#94c9ec00;
+    border-radius:4px;
+    border: 1px solid #58677d;
+    display: inline-block;
+    font-size: 3vh;
+    padding: 0.5vh;
+    margin: 0vh 2vh 2vh 0vh;
+    min-width: 5%;
+    text-align: center;
+    cursor: pointer;
+}
+#car:hover{
+    border:1px solid #ff0000;
+}
+.logo{
+    width: 15%;
+    /* padding: 25px 5%;
+    text-align: center;
+    float: left; */
+    position: absolute;
+    top: 50%;
+}
+.logo img{
+    width: 100%;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    top: 0;
+    margin: auto;
+    max-width: 100px;
+}
+/* .product-list .item {
+    width:25%;
+    padding:10px 20px 10px 0;
+    float:left;
+    text-align:center;
+    line-height:1.2;
+}
+
+.product-list .item img {
+    width:100%;
+    margin-bottom:8px;
+}
+
+.product-detail {
+    text-align:justify;
+}
+
+.product-detail .price {
+    color:#333;
+    font-size:28px;
+    font-weight:bold;
+}
+
+.product-detail img {
+    width:40%;
+    float:left;
+    padding:0 20px 20px 0;
+}
+
+.product-detail h1 {
+    margin-bottom:0;
+}
+
+.product-detail h2 {
+    margin-top:10px;
+}
+
+.order-form {
+    float:left;
+}
+
+.order-info {
+    float:right;
+    width:300px;
+    background:#efefef;
+    padding:10px 20px;
+    color:#333;
+    border-bottom:4px solid #58677d;
+}
+
+.order-info h3 {
+    color:#58677d;
+}
+
+.order-info ul li {
+    margin:0;
+    padding:0;
+    font-size:14px;
+}
+
+.order-info p {
+    font-weight:bold;
+    float:right;
+}
+
+.order-info span {
+    float:right;
+}
+
+.neg {
+    color:#dc1616;
+}
+
+.languages {
+   float:right;
+   padding-top:4px;
+   font-size:14px;
+}
+
+.languages ul {
+    list-style:none;
+    margin:0;
+    padding:0;
+    float:left;
+}
+
+.languages ul li {
+    float:left;
+    margin:0 0 0 10px;
+    font-size:14px;
+}
+
+.languages p {
+    float:left;
+    margin:0;
+}
+
+.recommendations {
+    clear:both;
+}
+
+.recommendations div {
+    float:left;
+}
+
+.recommendations img {
+    width:200px
+}
+
+.recommendations p {
+    clear:both;
+}
+
+.recommendations.cart {
+    width:60%;
+    float:left;
+    overflow:auto;
+}
+
+.recommendations.cart h3 {
+    margin-top:0;
+}
+
+.recommendations.cart .item {
+    margin-right:10px;
+}
+
+.recommendations.cart img {
+    width:120px;
+}
+
+/* braintree hosted fields */
+/* form div.field {
+    font-size:13px;
+    color:#666;
+    width:300px;
+    height:22px;
+    margin-bottom:10px;
+    padding:6px 12px;
+    border:0;
+    background:#efefef;
+    color:#666;
+    border-radius:4px;
+} */
+
+.item {
+    margin: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 20px;
+}
+.video_cart{
+    height: auto;
+    overflow: auto;
+    margin-bottom: 5px;
+}
+
+.video {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 56.25%;
+    background-color: #000000;
+}
+.video__embed{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+.video h3,h4{
+    margin: 0px;
+}
+
+
+.video__link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.video__media {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+/* .lazyload {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+} */
+.video__button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    z-index: 1;
+    display: none;
+    padding: 0;
+    width: 68px;
+    height: 48px;
+    border: none;
+    background-color: transparent;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+}
+
+.video__button-shape {
+    fill: #212121;
+    fill-opacity: 0.8;
+}
+
+.video__button-icon {
+    fill: #ffffff;
+}
+
+.video__button:focus {
+    outline: none;
+}
+
+.video:hover .video__button-shape,
+.video__button:focus .video__button-shape {
+    fill: #ff0000;
+    fill-opacity: 1;
+}
+
+/* Enabled */
+
+.video--enabled {
+    cursor: pointer;
+}
+
+.video--enabled .video__button {
+    display: block;
+}
+
+.open_page_video{
+    border: none;
+    color: #58677d;
+    background: transparent;
+    font-size: 20px;
+    width: 35%;
+    float: right;
+    cursor: pointer;
+    text-align: center;
+}
+.open_page_video:hover{
+    color: #ff0000;
+}
+.header {
+    min-height: 80px;
+    position: relative;
+    padding: 0 5%;
+}
+header {
+	position: relative;
+}
+.menu-triger {
+	background: url(menu.png) 0 0 no-repeat;
+	display: block;
+	width: 42px;
+	height: 30px;
+	position: absolute;
+	right: 0px;
+	top: 20px;
+}	
+.menu-close {
+	background: url(close.png) 0 0 no-repeat;
+	display: block;
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	z-index: 100;
+}
+.menu-popup {
+	background: #2c2e3e;
+	display: none;
+	position: absolute;
+	right: -110%;
+	top: 0;
+	width: 80%;
+	box-sizing: border-box;
+	padding: 40px;
+	z-index: 9999;	
+	box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.22);
+}
+.menu-popup ul {
+	margin: 60px 0px 0px 0px;
+	padding: 0;
+}
+.menu-popup li {
+	list-style: none;
+	margin: 30px 0;
+	padding: 0;
+}
+.menu-popup li a {
+	font-size: 22px;
+	font-family: 'Ubuntu', sans-serif;
+	color: rgb(255, 255, 255);
+	line-height: 0;	
+	text-decoration: none;
+}
+.menu-popup li a:hover{
+	color: #ff0000;
+}
+.body_pointer * {
+	cursor: pointer;
+}
+
+@media screen and (max-width: 1024px){
+    #content h1 {
+        margin-left: 0px;
+        font-size: 1.5em;
+    }
+    .item {
+        display: block;
+        
+    }
+    .video_cart {
+        margin-bottom: 20px;
+    }
+}

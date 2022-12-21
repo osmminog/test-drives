@@ -1,0 +1,26 @@
+{% extends "head/base.html" %}
+{% load head_tags %}
+{% load user_agents %}
+{% load static %}
+{% block title %}Поделиться новостью{% endblock %}
+
+{% block content %}
+<h1>Поделиться "{{ post.title }}" на e-mail</h1>
+{% if request|is_pc %}
+  
+  <div id="main" class="cars-list"> 
+  {% if sent %}
+    <h1>E-mail успешно отправлено</h1>
+    <p>
+      "{{ post.title }}" отправлено {{ form.cleaned_data.to }}.
+    </p>
+  {% else %}
+    <form action="." method="post">
+      {{ form.as_p }}
+      {% csrf_token %}
+      <input type="submit" value="Отправить">
+    </form>
+  {% endif %}
+  </div>
+{% endif %}
+{% endblock %}

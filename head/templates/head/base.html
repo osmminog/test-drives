@@ -1,0 +1,126 @@
+{% load static %}
+{% load user_agents %}
+<!DOCTYPE html>
+<html lang="ru" xmlns:fb="http://ogp.me/ns/fb#">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block description %} {% endblock %}
+    <title>{% block title %}Видео тест драйвы{% endblock %}</title>
+    <link href="{% static 'css/base.css' %}" rel="stylesheet">
+    <link rel="shortcut icon" type="image/png" href="{% static 'img/Favicon.ico' %}">
+    <link rel="new_video" type="head/rss+xml" href="feed" />
+  </head>
+  <body>
+    <div class="header">
+      <div class="logo">
+        <a href="/"><img src="{% static 'img/Logo.svg' %}" width="200" height="117" alt="Тест драйв"></img></a>
+      </div>
+
+      {% if request|is_pc %}
+        <div class="topmenu">
+          <a href='{% url "head:post_list" %}' {% if slug == 'autonews/' %}class="selected"{% endif %}>Автоновости</a>
+          {% if brand %}
+            <a href="#history">История марки {{ brand.title }}</a>
+          {% endif %}
+          {% if car %}
+            <a href=''>Описание и характеристики {{ brand.title }} {{ car.title }}</a>
+          {% endif %}
+        </div>
+        
+      {% endif %}
+
+      {% if request|is_mobile or request|is_tablet %}
+        <link rel="stylesheet" href="{% static 'css/mobail.css' %}" />
+        <header>
+          <div class="menu">
+            <a class="menu-triger" href="#" alt="menu"></a>
+            <div class="menu-popup">
+              <a class="menu-close" href="#"></a>
+              <ul>
+                <li {% if not brand and slug != 'autonews/' %}class="selected"{% endif %}>
+                  <a href='{% url "head:post_list" %}'>Автоновости</a>
+                </li>
+                <li {% if not brand and slug != 'new_video/' %}class="selected"{% endif %}>
+                  <a href='{% url "head:popular_list" %}'>Популярные тесты</a>
+                </li>
+                <li {% if not brand and slug == 'new_video/' %}class="selected"{% endif %}>
+                  <a href='{% url "head:new_video_list" %}'>Новые тесты</a>
+                </li>
+                {% for b in brands %}
+                  <li {% if brand.slug == b.slug %}class="selected"{% endif %}>
+                    <a href='{{ b.get_absolute_url }}'>{{ b.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>						
+            </div>
+          </div>
+        </header>
+      {% endif %}
+    </div>
+
+  {% if request|is_pc %}
+  <link rel="stylesheet" href="{% static 'css/pc.css' %}" />
+  <div id="sidebar">
+    <ul>
+      <li {% if slug == 'popular_video/' %}class="selected"{% endif %}>
+        <a href='{% url "head:popular_list" %}'>Популярные тесты</a>
+      </li>
+      <li {% if slug == 'new_video/' %}class="selected"{% endif %}>
+        <a href='{% url "head:new_video_list" %}'>Новые тесты</a>
+      </li>
+      {% for b in brands %}
+        <li {% if brand.slug == b.slug %}class="selected"{% endif %}>
+          <a href='{{ b.get_absolute_url }}'>
+            {% if b.image %}<img class="brand_img" src="{{ b.image.url }}"> 
+            {% endif %}
+            <div class="brand">{{ b.title }}</div>
+          </a>
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  
+    <a id="upbutton" onclick="$(document).scrollTop(0);">
+      <svg class="circle">
+        <circle r="50%" cx="50%" cy="50%" fill="#58677d4a"/>
+      </svg>
+      <svg class="strelka-top-4" viewBox="0 0 100 85">
+        <polygon points="58.263,0.056 100,41.85 58.263,83.641 30.662,83.641 62.438,51.866 0,51.866 0,31.611 62.213,31.611 30.605,0 58.263,0.056" ></polygon>
+      </svg>
+    </a>
+
+    <div id="content">
+      {% block content %}
+      {% endblock %}
+    </div>
+
+    <footer>
+      <hr>
+      <div class="copyright">
+        &#169; 2018-{{ now.year }} <a href="https://osmminog.ru">Powered by OSMMiNoG.RU</a>
+      </div>
+      <div class="share">
+        <div>Поделиться</div> 
+        <div>
+
+          
+          <a rel="noopener" href="https://vk.com/share.php?url=http://127.0.0.1:8000{{ request.get_full_path|urlencode }}&amp;title={{ post.title }}&amp;image=http://127.0.0.1:8000{{ post.image_jpg.url }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'); return false;" target="_blank" rel="nofollow" name="VK">
+            <img src="{% static 'img/VK.svg' %}" width="24" height="24" alt="VK"></a>
+          <a rel="noopener" href="https://www.facebook.com/sharer/sharer.php?u=https://test-drives.ru{{ request.get_full_path|urlencode }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'); return false;" target="_blank" rel="nofollow" name="FB">
+            <img src="{% static 'img/fb.svg' %}" width="24" height="24" alt="FB"></a>
+          <a rel="noopener" href="https://connect.ok.ru/dk?st.cmd=WidgetSharePreview&service=odnoklassniki&st.shareUrl=https://test-drives.ru{{ request.get_full_path|urlencode }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'); return false;" target="_blank" rel="nofollow" name="OK">
+            <img src="{% static 'img/ok.svg' %}" width="24" height="24" alt="OK"></a>
+          <a rel="noopener" href="https://twitter.com/intent/tweet?url=https://test-drives.ru{{ request.get_full_path|urlencode }}" onclick="javascript:window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=300,width=600'); return false;" target="_blank" rel="nofollow" name="Twitter">
+            <img src="{% static 'img/twitter.svg' %}" width="24" height="24" alt="Twitter"></a>
+          </a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script async type="text/javascript" src="{% static 'js/mobail_menu.js' %}"></script>
+  </body>
+</html>

@@ -1,0 +1,237 @@
+{% extends "head/base.html" %}
+{% load head_tags %}
+{% load user_agents %}
+{% load static %}
+{% block title %}{{ post.title }}{% endblock %}
+{% block description %} <meta name="Description" content="{{ post.description }}"/>{% endblock %}
+{% block content %}
+<h1>{{ post.title }}</h1>
+
+
+{% if request|is_pc %}
+
+  <div id="main" class="cars-list"> 
+  <img class='img_post' src='{{ post.image_jpg.url }}'>
+  <p>
+    {{ post.body|safe }}
+  </p>
+  <p class="date">
+    Источник motor1.com, 
+    Опубликовано {{ post.publish }} 
+  </p>
+
+  <p>
+    <a href='{% url "head:post_share" post.id %}'>Поделиться этой статьей</a>
+  </p>
+  {% if similar_posts %}
+  <hr>
+  <h2>Читайте также</h2>
+  <div class="similar_posts">
+  {% for post in similar_posts %}
+  
+      <a href="{{ post.get_absolute_url }}">
+          <img class='sketch_img_post' src='{{ post.image_jpg.url }}'> 
+        <p>{{ post.title }}</p>
+      </a>
+    
+  {% endfor %}
+  </div>
+  {% endif %}
+  <hr>
+  {% with comments.count as total_comments %}
+  
+    <h2>{{ total_comments }} коммент. </h2>
+  
+  {% endwith %}
+  {% for comment in comments %}
+    <div class="comment">
+      {{ comment.body|linebreaks }}
+      <p class="info">
+        {{ comment.name }} {{ comment.created }}
+      </p>
+    </div>
+    {% empty %}
+    <p>Еще нет ни одного комментария</p>
+  {% endfor %}
+  {% if new_comment %}
+    <h2>Ваш комментарий был добавлен.</h2>
+  {% else %}
+    <h2>Добавить новый комментарий</h2>
+    <form action="." method="post">
+      {{ comment_form.as_p }}
+      {% csrf_token %}
+      <p><input type="submit" value="Отправить"></p>
+    </form>
+  {% endif %}
+
+  <hr>
+  <h3>
+    {% if brand_name and video_brand %}
+      <h3>Также смотрите видео обзоры {{ brand_name }}</h3>
+      <div class="item">
+        {% for v in video_brand %}
+          <div class="imgvideo">
+            <div class="video">
+              <a class="newvideo_link" href="/{{ slug_brand }}/">
+                <picture>
+                  {% if v.image_webp_small %}
+                    <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp_small.url }} 400w, {{ v.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ v.title_video }}">
+                    <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+                  {% else %}
+                    <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+                  {% endif %}
+                </picture>
+                <h4 class="link_to_newvideo">{{ v.title_video }}</h4>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+      <h3>Также смотрите видео обзоры автомобилей</h3>
+  <div class="item">
+    {% for v in video %}
+      <div class="imgvideo">
+        <div class="video">
+          <a class="newvideo_link" href="/">
+            <picture>
+              {% if v.image_webp_small %}
+                <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp_small.url }} 400w, {{ v.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ v.title_video }}">
+                <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+              {% else %}
+                <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+              {% endif %}
+            </picture>
+            <h4 class="link_to_newvideo">{{ v.title_video }}</h4>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if request|is_mobile or request|is_tablet %}
+<div id="m-main" class="cars-list"> 
+  <img class='img_post' src='{{ post.image_jpg.url }}'>
+  <p>
+    {{ post.body|safe }}
+  </p>
+  <p class="date">
+    Источник motor1.com, 
+    Опубликовано {{ post.publish }} 
+  </p>
+
+  <p>
+    <a href='{% url "head:post_share" post.id %}'>Поделиться этой статьей</a>
+  </p>
+  {% if similar_posts %}
+  <hr>
+  <h2>Читайте также</h2>
+  <div class="similar_posts">
+  {% for post in similar_posts %}
+  
+      <a href="{{ post.get_absolute_url }}">
+          <img class='sketch_img_post' src='{{ post.image_jpg.url }}'> 
+        <p>{{ post.title }}</p>
+      </a>
+    
+  {% endfor %}
+  </div>
+  {% endif %}
+  <hr>
+  {% with comments.count as total_comments %}
+  
+    <h2>{{ total_comments }} коммент. </h2>
+  
+  {% endwith %}
+  {% for comment in comments %}
+    <div class="comment">
+      {{ comment.body|linebreaks }}
+      <p class="info">
+        {{ comment.name }} {{ comment.created }}
+      </p>
+    </div>
+    {% empty %}
+    <p>Еще нет ни одного комментария</p>
+  {% endfor %}
+  {% if new_comment %}
+    <h2>Ваш комментарий был добавлен.</h2>
+  {% else %}
+    <h2>Добавить новый комментарий</h2>
+    <form action="." method="post">
+      {{ comment_form.as_p }}
+      {% csrf_token %}
+      <p><input type="submit" value="Отправить"></p>
+    </form>
+  {% endif %}
+
+  <hr>
+  <h3>
+    {% if brand_name and video_brand %}
+      <h3>Также смотрите видео обзоры {{ brand_name }}</h3>
+      <div class="item">
+        {% for v in video_brand %}
+          <div class="imgvideo">
+            <div class="video">
+              <a class="newvideo_link" href="/{{ slug_brand }}/">
+                <picture>
+                  {% if v.image_webp_small %}
+                    <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp_small.url }} 400w, {{ v.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ v.title_video }}">
+                    <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+                  {% else %}
+                    <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                    <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+                  {% endif %}
+                </picture>
+                <h4 class="link_to_newvideo">{{ v.title_video }}</h4>
+              </a>
+            </div>
+          </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+      <h3>Также смотрите видео обзоры автомобилей</h3>
+  <div class="item">
+    {% for v in video %}
+      <div class="imgvideo">
+        <div class="video">
+          <a class="newvideo_link" href="/">
+            <picture>
+              {% if v.image_webp_small %}
+                <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp_small.url }} 400w, {{ v.image_webp.url }} 600w" sizes = "50vw" width="600" height="340" alt="{{ v.title_video }}">
+                <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+              {% else %}
+                <source class="lazyload" data-src="{{ v.image_webp.url }}" data-srcset="{{ v.image_webp.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <source class="lazyload" data-src="{{ v.image_jpg.url }}" data-srcset="{{ v.image_jpg.url }}" width="600" height="340" alt="{{ v.title_video }}">
+                <img class="lazyload" data-src="{{ v.image_jpg.url }}" width="100%" height="100%" alt="{{ v.title_video }}">
+              {% endif %}
+            </picture>
+            <h4 class="link_to_newvideo">{{ v.title_video }}</h4>
+          </a>
+        </div>
+      </div>
+    {% endfor %}
+    </div>
+    {% endif %}
+</div>
+{% endif %}
+
+{% block extrahead %}
+      <script async type="text/javascript" src="{% static 'js/lazyload.js' %}"></script>
+      <script async type="text/javascript" src="{% static 'js/video.js' %}"></script>
+      <script async type="text/javascript" src="{% static 'js/style.js' %}"></script>
+{% endblock extrahead %}
+{% endblock %}
